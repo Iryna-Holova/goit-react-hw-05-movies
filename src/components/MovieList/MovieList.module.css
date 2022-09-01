@@ -1,0 +1,11 @@
+.title {
+    margin-left: 20px;
+}
+
+.movie_list {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: -10px;
+}
