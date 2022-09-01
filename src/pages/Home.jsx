@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams, useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { animateScroll as scroll } from 'react-scroll';
 import { fetchTrendingMovies } from "services/fetchMovies";
 import MovieList from "components/MovieList/MovieList";

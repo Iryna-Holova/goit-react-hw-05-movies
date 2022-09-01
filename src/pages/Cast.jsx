@@ -18,6 +18,9 @@ const Cast = () => {
         fetchMovieCast(movieId)
             .then(({cast}) => {
                 setCast(cast);
+                if (cast.length === 0) {
+                    setError("We don't have any cast for this movie")
+                };
             })
             .catch(error => setError(error))
             .finally(() => {
