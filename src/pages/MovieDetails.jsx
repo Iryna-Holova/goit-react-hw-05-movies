@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { fetchMovieByID } from "services/fetchMovies";
 import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 import Loader from "components/Loader/Loader";
@@ -10,6 +10,8 @@ const MovieDetails = () => {
     const [movie, setMovie] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         setIsLoading(true);
@@ -18,15 +20,22 @@ const MovieDetails = () => {
             .then((data) => {
                 setMovie(data);
             })
-            .catch(error => setError(error))
+            .catch(error => {
+                setError(error.message);
+                navigate("/");
+            })
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [movieId]);
+    }, [movieId, navigate]);
+
+    const handleBackBtn = () => {
+        navigate(location?.state?.from ?? "/");
+    };
 
     return (
         <>
-            {movie && <MovieDescription movie={movie} />}
+            {movie && <MovieDescription movie={movie} onBackBtn={handleBackBtn} />}
             {isLoading && <Loader />}
             {error && <ErrorMessage message={error}/>}
         </>

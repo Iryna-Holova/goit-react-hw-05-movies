@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import { NavLink, Link, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Suspense } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import styles from "./MovieDescription.module.css";
 import Loader from "components/Loader/Loader";
 
-const MovieDescription = ({ movie }) => {
+const MovieDescription = ({ movie, onBackBtn }) => {
     const location = useLocation();
 
     const {
@@ -25,7 +25,7 @@ const MovieDescription = ({ movie }) => {
 
     return (
         <>
-            <Link className={styles.back_btn} to={location.state.from}><IoIosArrowBack className={styles.back_icon} /> Go back</Link>
+            <button className={styles.back_btn} onClick={onBackBtn} type="button"><IoIosArrowBack className={styles.back_icon} /> Go back</button>
             <div className={styles.description_wrapper}>
                 <img className={styles.description_image} src={moviePoster(poster_path)} alt={title} />
                 <div className={styles.description_info}>
@@ -50,6 +50,7 @@ const MovieDescription = ({ movie }) => {
 
 MovieDescription.propTypes = {
     movie: PropTypes.object.isRequired,
+    onBackBtn: PropTypes.func.isRequired,
 };
 
 export default MovieDescription;
